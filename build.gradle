@@ -1,0 +1,23 @@
+plugins {
+    id 'java'
+    id 'net.ltgt.apt' version '0.10'
+}
+
+group 'cesquivias'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    def truffleVersion = '1.0.0-rc1'
+    compile "com.oracle.truffle:truffle-api:${truffleVersion}"
+
+    apt "com.oracle.truffle:truffle-api:${truffleVersion}"
+    apt "com.oracle.truffle:truffle-dsl-processor:${truffleVersion}"
+
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
