@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 VERSION="1.0.0-rc1"
-LANGUAGE_PATH="./build/libs/bf-dist-1.0-SNAPSHOT.jar"
-LAUNCHER_PATH="./build/libs/bf-dist-1.0-SNAPSHOT.jar"
+LANGUAGE_PATH="./lang/target/bf-1.0-SNAPSHOT.jar"
+LAUNCHER_PATH="./main/target/main-1.0-SNAPSHOT.jar"
 MAIN_CLASS="cesquivias.bf.Main"
 
 #######################################################################
