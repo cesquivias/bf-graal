@@ -1,9 +1,11 @@
 package cesquivias.bf;
 
 import com.oracle.truffle.api.CallTarget;
+import com.oracle.truffle.api.Truffle;
 import com.oracle.truffle.api.TruffleLanguage;
 import com.oracle.truffle.api.instrumentation.ProvidedTags;
 import com.oracle.truffle.api.instrumentation.StandardTags;
+import com.oracle.truffle.api.nodes.RootNode;
 
 import static cesquivias.bf.BFLanguage.ID;
 
@@ -26,7 +28,7 @@ public class BFLanguage extends TruffleLanguage<BFContext> {
 
     @Override
     protected CallTarget parse(ParsingRequest request) throws Exception {
-        // TODO: parse the source and return root node
-        return super.parse(request);
+        RootNode rootNode = BFParser.parse(this, request.getSource());
+        return Truffle.getRuntime().createCallTarget(rootNode);
     }
 }

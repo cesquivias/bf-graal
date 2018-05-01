@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'application'
     id 'net.ltgt.apt' version '0.10'
 }
 
@@ -20,4 +21,16 @@ dependencies {
     apt "com.oracle.truffle:truffle-dsl-processor:${truffleVersion}"
 
     testCompile group: 'junit', name: 'junit', version: '4.12'
+}
+
+applicationName = 'bf'
+mainClassName = 'cesquivias.bf.Main'
+
+task fatJar(type: Jar) {
+    manifest {
+        attributes 'Main-Class': mainClassName
+    }
+    baseName = "${applicationName}-dist"
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
 }
