@@ -1,5 +1,6 @@
 package cesquivias.bf;
 
+import com.oracle.truffle.api.CompilerDirectives.TruffleBoundary;
 import com.oracle.truffle.api.frame.FrameSlot;
 import com.oracle.truffle.api.frame.FrameSlotTypeException;
 import com.oracle.truffle.api.frame.VirtualFrame;
@@ -18,9 +19,14 @@ public class ReadDataNode extends BFNode {
     @Override
     public void execute(VirtualFrame frame) {
         try {
-            ((byte[]) frame.getObject(data))[frame.getInt(ptr)] = (byte) System.in.read();
+            ((byte[]) frame.getObject(data))[frame.getInt(ptr)] = stdinRead();
         } catch (FrameSlotTypeException | IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @TruffleBoundary
+    private byte stdinRead() throws IOException {
+        return (byte) System.in.read();
     }
 }
