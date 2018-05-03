@@ -6,7 +6,7 @@ To Build
 --------
 
 ```bash
-mvn package "$foo"
+mvn package
 ```
 
 To Run
