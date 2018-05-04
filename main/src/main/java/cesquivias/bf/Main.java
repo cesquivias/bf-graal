@@ -14,6 +14,8 @@ public class Main {
     public static void main(String[] args) throws IOException {
         Source src = Source.newBuilder(BF, new File(args[0])).build();
         Context context = Context.newBuilder(BF).in(System.in).out(System.out).build();
-        Value val = context.eval(src);
+        for (int i = 0; i < 10000000; i ++) {
+            Value val = context.eval(src);
+        }
     }
 }
