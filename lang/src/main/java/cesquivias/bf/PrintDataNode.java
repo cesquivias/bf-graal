@@ -1,5 +1,6 @@
 package cesquivias.bf;
 
+import com.oracle.truffle.api.CompilerDirectives;
 import com.oracle.truffle.api.CompilerDirectives.TruffleBoundary;
 import com.oracle.truffle.api.frame.FrameSlot;
 import com.oracle.truffle.api.frame.FrameSlotTypeException;
@@ -19,6 +20,7 @@ public class PrintDataNode extends BFNode {
         try {
             stdoutPrint(((byte[]) frame.getObject(data))[frame.getInt(ptr)]);
         } catch (FrameSlotTypeException e) {
+            CompilerDirectives.transferToInterpreter();
             e.printStackTrace();
         }
     }

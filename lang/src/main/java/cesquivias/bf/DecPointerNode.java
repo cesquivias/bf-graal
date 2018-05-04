@@ -1,5 +1,6 @@
 package cesquivias.bf;
 
+import com.oracle.truffle.api.CompilerDirectives;
 import com.oracle.truffle.api.frame.FrameSlot;
 import com.oracle.truffle.api.frame.FrameSlotTypeException;
 import com.oracle.truffle.api.frame.VirtualFrame;
@@ -16,6 +17,7 @@ public class DecPointerNode extends BFNode {
         try {
             frame.setInt(ptr, frame.getInt(ptr) - 1);
         } catch (FrameSlotTypeException e) {
+            CompilerDirectives.transferToInterpreter();
             e.printStackTrace();
         }
     }
