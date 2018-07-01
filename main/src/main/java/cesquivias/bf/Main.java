@@ -1,5 +1,6 @@
 package cesquivias.bf;
 
+import com.beust.jcommander.JCommander;
 import org.graalvm.polyglot.Context;
 import org.graalvm.polyglot.Source;
 import org.graalvm.polyglot.Value;
@@ -12,10 +13,20 @@ public class Main {
     public static final String BF = "bf";
 
     public static void main(String[] args) throws IOException {
-        Source src = Source.newBuilder(BF, new File(args[0])).build();
+        Flags flags = new Flags();
+        JCommander jCommander = new JCommander.Builder()
+            .addObject(flags)
+            .build();
+        jCommander.parse(args);
+        if (flags.isHelp) {
+            jCommander.usage();
+            return;
+        }
+
+        Source src = Source.newBuilder(BF, new File(flags.script)).build();
         Context context = Context.newBuilder(BF).in(System.in).out(System.out).build();
-        for (int i = 0; i < 10000000; i ++) {
-            Value val = context.eval(src);
+        for (int i = 0; i < flags.iterations; i ++) {
+            context.eval(src);
         }
     }
 }

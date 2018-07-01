@@ -3,6 +3,7 @@
 VERSION="1.0.0-rc1"
 LANGUAGE_PATH="./lang/target/bf-1.0-SNAPSHOT.jar"
 LAUNCHER_PATH="./main/target/main-1.0-SNAPSHOT.jar"
+DEPS='./main/target/deps/*'
 MAIN_CLASS="cesquivias.bf.Main"
 
 #######################################################################
@@ -59,9 +60,9 @@ if [[ "$GRAALVM_VERSION" != "" ]]; then
           PROGRAM_ARGS="$PROGRAM_ARGS $opt" ;;
       esac
     done
-    echo $JAVACMD $JAVA_ARGS -Dtruffle.class.path.append=$LANGUAGE_PATH -cp $LAUNCHER_PATH $MAIN_CLASS $PROGRAM_ARGS
+    echo $JAVACMD $JAVA_ARGS -Dtruffle.class.path.append=$LANGUAGE_PATH -cp $LAUNCHER_PATH:$DEPS $MAIN_CLASS $PROGRAM_ARGS
 
-    $JAVACMD $JAVA_ARGS -Dtruffle.class.path.append=$LANGUAGE_PATH -cp $LAUNCHER_PATH $MAIN_CLASS $PROGRAM_ARGS
+    $JAVACMD $JAVA_ARGS -Dtruffle.class.path.append=$LANGUAGE_PATH -cp $LAUNCHER_PATH:$DEPS $MAIN_CLASS $PROGRAM_ARGS
 else
     echo "Warning: Could not find GraalVM on $JAVA_HOME. Running on JDK without support for compilation."
     echo
@@ -90,6 +91,6 @@ else
     fi
     GRAAL_SDK_PATH="$HOME/.m2/repository/org/graalvm/graal-sdk/$VERSION/graal-sdk-$VERSION.jar"
     TRUFFLE_API_PATH="$HOME/.m2/repository/com/oracle/truffle/truffle-api/$VERSION/truffle-api-$VERSION.jar"
-    echo $JAVACMD -cp $GRAAL_SDK_PATH:$LAUNCHER_PATH:$LANGUAGE_PATH:$TRUFFLE_API_PATH $MAIN_CLASS $PROGRAM_ARGS
-    $JAVACMD -cp $GRAAL_SDK_PATH:$LAUNCHER_PATH:$LANGUAGE_PATH:$TRUFFLE_API_PATH $MAIN_CLASS $PROGRAM_ARGS
+    echo $JAVACMD -cp $GRAAL_SDK_PATH:$LAUNCHER_PATH:$LANGUAGE_PATH:$TRUFFLE_API_PATH:$DEPS $MAIN_CLASS $PROGRAM_ARGS
+    $JAVACMD -cp $GRAAL_SDK_PATH:$LAUNCHER_PATH:$LANGUAGE_PATH:$TRUFFLE_API_PATH:$DEPS $MAIN_CLASS $PROGRAM_ARGS
 fi
