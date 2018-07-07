@@ -9,9 +9,6 @@ import java.io.File;
 import java.io.IOException;
 
 public class Main {
-
-    public static final String BF = "bf";
-
     public static void main(String[] args) throws IOException {
         Flags flags = new Flags();
         JCommander jCommander = new JCommander.Builder()
@@ -23,8 +20,10 @@ public class Main {
             return;
         }
 
-        Source src = Source.newBuilder(BF, new File(flags.script)).build();
-        Context context = Context.newBuilder(BF).in(System.in).out(System.out).build();
+        File program = new File(flags.script).getCanonicalFile();
+        String langId = Source.findLanguage(program);
+        Source src = Source.newBuilder(langId, program).build();
+        Context context = Context.newBuilder(langId).in(System.in).out(System.out).build();
         for (int i = 0; i < flags.iterations; i ++) {
             context.eval(src);
         }
