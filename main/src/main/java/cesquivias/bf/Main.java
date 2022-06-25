@@ -21,10 +21,10 @@ public class Main {
         }
 
         File program = new File(flags.script).getCanonicalFile();
-        String langId = Source.findLanguage(program);
+        String langId = "bf";
         Source src = Source.newBuilder(langId, program).build();
         Context context = Context.newBuilder(langId).in(System.in).out(System.out).build();
-        for (int i = 0; i < flags.iterations; i ++) {
+        for (int i = 0; i < flags.iterations; i++) {
             context.eval(src);
         }
     }

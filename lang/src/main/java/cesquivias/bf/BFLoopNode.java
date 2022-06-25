@@ -14,6 +14,6 @@ public class BFLoopNode extends BFNode {
 
     @Override
     public void execute(VirtualFrame frame) {
-        loopNode.executeLoop(frame);
+        loopNode.execute(frame);
     }
 }

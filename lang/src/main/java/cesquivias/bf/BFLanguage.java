@@ -10,7 +10,8 @@ import com.oracle.truffle.api.nodes.RootNode;
 import static cesquivias.bf.BFLanguage.ID;
 
 @TruffleLanguage.Registration(id = ID, name = "BF", version = "1.0-SNAPSHOT",
-        mimeType = BFLanguage.MIME_TYPE)
+        defaultMimeType = BFLanguage.MIME_TYPE, characterMimeTypes = BFLanguage.MIME_TYPE,
+contextPolicy = TruffleLanguage.ContextPolicy.SHARED, fileTypeDetectors = BFFileDetector.class)
 @ProvidedTags({StandardTags.StatementTag.class, StandardTags.RootTag.class})
 public class BFLanguage extends TruffleLanguage<BFContext> {
     public static final String ID = "bf";
@@ -19,11 +20,6 @@ public class BFLanguage extends TruffleLanguage<BFContext> {
     @Override
     protected BFContext createContext(Env env) {
         return new BFContext(this, env);
-    }
-
-    @Override
-    protected boolean isObjectOfLanguage(Object object) {
-        return false;
     }
 
     @Override

@@ -1,14 +1,23 @@
 package cesquivias.bf;
 
-import java.nio.file.Path;
-import java.nio.file.spi.FileTypeDetector;
+import com.oracle.truffle.api.TruffleFile;
 
-public class BFFileDetector extends FileTypeDetector {
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.file.Path;
+
+public class BFFileDetector implements TruffleFile.FileTypeDetector {
+
     @Override
-    public String probeContentType(Path path) {
-        if (path.getFileName().toString().endsWith(".bf")) {
+    public String findMimeType(TruffleFile file) throws IOException {
+        if (file.getName().endsWith(".bf")) {
             return BFLanguage.MIME_TYPE;
         }
+        return null;
+    }
+
+    @Override
+    public Charset findEncoding(TruffleFile file) throws IOException {
         return null;
     }
 }

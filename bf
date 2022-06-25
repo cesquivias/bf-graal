@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-VERSION="1.0.0-rc1"
+VERSION='"22.1.0"' # The grep call captures the double quotes. Instead of fixing the grep call I got lazy and just added the quotes here
 LANGUAGE_PATH="./lang/target/bf-1.0-SNAPSHOT.jar"
 LAUNCHER_PATH="./main/target/main-1.0-SNAPSHOT.jar"
 DEPS='./main/target/deps/*'

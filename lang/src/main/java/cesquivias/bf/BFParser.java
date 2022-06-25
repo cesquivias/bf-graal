@@ -6,9 +6,7 @@ import com.oracle.truffle.api.frame.FrameSlotKind;
 import com.oracle.truffle.api.nodes.RootNode;
 import com.oracle.truffle.api.source.Source;
 
-import java.io.FileDescriptor;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
@@ -21,8 +19,8 @@ public class BFParser {
         List<BFNode> nodes = new ArrayList<>();
         nodes.add(new BFInitNode(ptr, data));
         Stack<List<BFNode>> loops = new Stack<>();
-        InputStream istream = source.getInputStream();
-        int i = istream.read();
+        Reader reader = source.getReader();
+        int i = reader.read();
         while (i != -1) {
             switch ((char) i) {
             case '>':
@@ -53,7 +51,7 @@ public class BFParser {
                 nodes.add(loopNode);
                 break;
             }
-            i = istream.read();
+            i = reader.read();
         }
         return new BFRootNode(bfLanguage, frameDescriptor, nodes);
     }
