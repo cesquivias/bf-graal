@@ -2,6 +2,8 @@ BF-GRAAL
 =======
 A brainfuck interpreter written on top of Truffle to run on the GraalVM
 
+**Requires Graal VM version `22.1.0.1`**
+
 To Build
 --------
 
